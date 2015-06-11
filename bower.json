@@ -1,6 +1,7 @@
 {
   "name": "angular-bz-d3-panel",
   "version": "0.0.1",
+  "main": "angular-bz-d3-panel.min.js",
   "ignore": [
     "app",
     "dist",
