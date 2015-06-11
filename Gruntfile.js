@@ -366,10 +366,9 @@ module.exports = function (grunt) {
     copy: {
       bower: {
           expand: true,
-          cwd: '<%= yeoman.dist %>',
-          dest: './',
-          src: [
-            'bzd3panel.min.js'
+          files: [
+            { src: '.tmp/concat/scripts/bzd3panel.js', dest: 'bzd3panel.js' },
+            { src: '<%= yeoman.dist %>/scripts/bzd3panel.js', dest: 'bzd3panel.min.js' }
           ]
       },
       dist: {
@@ -461,7 +460,9 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('bower', [
-    'build',
+    'useminPrepare',
+    'concat',
+    'uglify',
     'copy:bower'
   ]);
 

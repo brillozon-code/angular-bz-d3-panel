@@ -62,17 +62,22 @@ D3.js to draw that data.
 
 ## Examples
 
-## Build & development
+## Develop
 
 <pre>
-  bash> grunt build
   bash> grunt serve
 </pre>
 
 ## Testing
 
-
 <pre>
   bash> grunt test
+</pre>
+
+## Deploy
+
+<pre>
+  bash> grunt bower
+  bash> git push origin master
 </pre>
 
