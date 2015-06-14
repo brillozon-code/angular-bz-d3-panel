@@ -72,7 +72,7 @@ angular.module("bzD3Module")
                 scope.defaultDraw(d3, svg, novalue);
               } else {
                 if(data) {
-                  scope.draw(d3, svg, data);
+                  scope.draw(d3, svg, data, element, attrs);
                 }
               }
 
