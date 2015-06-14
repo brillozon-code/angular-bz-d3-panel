@@ -1,5 +1,7 @@
 # angular-bz-d3-panel
 
+**Version 0.2**
+
 Simple encapsulation of D3 to allow drawing within a defined panel in an
 HTML page.
 
@@ -42,7 +44,7 @@ containing the data to be drawn, and the 'renderPanel' function that uses
 D3.js to draw that data.
 
 <pre>
-  module("application",["bzD3Module"])
+  module("application",["bzD3"])
     .controller("PanelController",[ function() {
       $scope.panelData = { data: [ 15, 25, 35 ] };
       $scope.renderPanel = function(d3,svg,data) {
