@@ -78,7 +78,9 @@
           var padding = parseInt(attrs.padding) || 5;
 
           var svg = d3.select(element[0])
-                      .insert('svg',':first-child');
+                      .insert('svg',':first-child')
+                      .style('height', attrs.height)
+                      .style('width', '100%');
 
           $window.onresize = function() {
             scope.$apply;
