@@ -23,16 +23,27 @@
       'BzD3'
     ];
     var novalue     = {data: [1] };
+    var panelData   = { data: [ 15, 25, 35, 45, 55, 65, 75 ] };
+    // var panelData   = { data: [ 15, 25, 35, 45 ] };
     var panelHeight = function() {
                         return 10 + 2*Math.max.apply(null, panelData.data);
                       };
-    var panelData   = { data: [ 15, 25, 35, 45 ] };
+    var panelWidth = function() {
+                        var mxw = Math.max.apply(null,panelData.data);
+                        return (mxw) + 2*mxw*panelData.data.length;
+                      };
 
-    var renderPanel = function(d3,svg,data) {
-      var height = $scope.panelHeight();
+    var renderPanel = function(d3,svg,data,element,attrs) {
+      var height = panelHeight();
+      var newWidth = panelWidth();
+      if( newWidth > attrs.width) {
+        svg.style('width',newWidth);
+      }
 
       svg.style('height',height)
-         .style('background-color', 'ivory');
+         .style('background-color', 'lightcyan');
+
+      var root = svg.append('g');
 
       var circles = svg.selectAll('circle')
                        .data(data)
@@ -44,10 +55,11 @@
              .attr('cx',function(d,i) {return height*i + d;})
              .attr('cy',function() {return height/2;})
              .attr('r',function(d) {return d;});
-      circles.append('text')
-             .text('Should be: ' + height)
-             .attr('x',20)
-             .attr('y',20);
+
+      root.append('text')
+         .text('Should be: ' + height)
+         .attr('x',20)
+         .attr('y',20);
     };
 
     $scope.awesomeThings = awesomeThings;
