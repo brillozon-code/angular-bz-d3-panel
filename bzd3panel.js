@@ -74,13 +74,28 @@
       link: function(scope,element,attrs) {
         bzD3.d3().then(function(d3) {
           var margin  = parseInt(attrs.margin)  || 20;
-          var height  = parseInt(attrs.height)  || 50;
           var padding = parseInt(attrs.padding) || 5;
+
+          var height;
+          if(attrs.height) {
+            height  = parseInt(attrs.height);
+          } else {
+            height = $(element).parent().height();
+            attrs.height = height;
+          }
+
+          var width;
+          if(attrs.width) {
+            width = parseInt(attrs.width);
+          } else {
+            width = $(element).parent().width();
+            attrs.width = width;
+          }
 
           var svg = d3.select(element[0])
                       .insert('svg',':first-child')
-                      .style('height', attrs.height)
-                      .style('width', '100%');
+                      .style('height', height)
+                      .style('width', width);
 
           $window.onresize = function() {
             scope.$apply;
@@ -92,22 +107,20 @@
             // return angular.element($window)[0].innerWidth;
           }, function() {
             if(scope.content) {
-              scope.render(scope.content.data);
+              scope.render(scope.content);
             }
           });
 
           // Redraw when the data changes.
-          scope.$watch('content', function(newVals,oldVals) {
+          scope.$watchCollection('content', function(newVals,oldVals) {
             if(scope.content) {
-              return scope.render(scope.content.data);
+              return scope.render(scope.content);
             }
           }, true);
 
           scope.defaultDraw = function(d3, svg, data, element, attrs) {
             svg.style('stroke-width', '0px')
-               .style('background-color', '#bf8ea6')
-               .style('height', attrs.height)
-               .style('width', '100%');
+               .style('background-color', '#bf8ea6');
 
             var g = svg.selectAll("g")
                        .data(data).enter().append("g");
@@ -115,12 +128,12 @@
              .style("fill", "red")
              .style("stroke", "black")
              .style("stroke-width", "2")
-             .attr("cx",45)
-             .attr("cy",45)
+             .attr("cx",width/2)
+             .attr("cy",height/2)
              .attr("r",40);
             g.append("text")
-             .attr("x",10)
-             .attr("y",40)
+             .attr("x",(width/2)-30)
+             .attr("y",(height/2) - 10)
              .text("LOL WUT");
           }
 
