@@ -1,6 +1,6 @@
 # angular-bz-d3-panel
 
-**Version 0.2.1**
+**Version 0.3.0**
 
 Simple encapsulation of D3 to allow drawing within a defined panel in an
 HTML page.
