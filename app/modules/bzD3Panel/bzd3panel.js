@@ -42,8 +42,8 @@
 
           var svg = d3.select(element[0])
                       .insert('svg',':first-child')
-                      .style('height', height)
-                      .style('width', width);
+                      .style('height', height + 'px')
+                      .style('width', width + 'px');
 
           $window.onresize = function() {
             scope.$apply;
