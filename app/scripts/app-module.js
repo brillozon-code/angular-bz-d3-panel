@@ -12,7 +12,7 @@
  */
 angular
   .module('bzD3App', [
-    'ngAnimate',
+    // 'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',

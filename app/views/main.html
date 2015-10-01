@@ -6,7 +6,7 @@
   </p>
   <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
   <div class="well well-lg">
-    <bz-d3-panel height="700" data-content="panelData.data" data-draw="renderPanel">
+    <bz-d3-panel height="700" data-content="panelData.data" data-render="renderPanel" data-redraw="redrawPanel">
       <p>
         This panel includes a drawing that has this caption.
       </p>
@@ -24,8 +24,11 @@
   <p>
     AngularJS is a toolset for building the framework most suited to your application development.
   </p>
-  <bz-d3-panel height="110" width="200" data-content="[0]" data-draw="null">
-    <p>This is another, but defaulted, panel.</p>
+<!--
+  <bz-d3-panel height="110" width="200" data-content="[0]" data-render="null" data-redraw="null">
+  -->
+  <bz-d3-panel data-content="[0]" data-render="null" data-redraw="null" data-counter=counter>
+    <p>This is another, but defaulted, panel. Number of redraw calls: {{counter}}</p>
   </bz-d3-panel>
 
   <h4>Karma</h4>

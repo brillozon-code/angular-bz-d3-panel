@@ -26,24 +26,33 @@
     var panelData   = { data: [ 15, 25, 35, 45, 55, 65, 75 ] };
     // var panelData   = { data: [ 15, 25, 35, 45 ] };
     var panelHeight = function() {
-                        return 10 + 2*Math.max.apply(null, panelData.data);
+                        return  0 + 2*Math.max.apply(null, panelData.data);
                       };
     var panelWidth = function() {
                         var mxw = Math.max.apply(null,panelData.data);
                         return (mxw) + 2*mxw*panelData.data.length;
                       };
+    var panelXScale;
+    var panelYScale;
+    var root;
 
     var renderPanel = function(d3,svg,data,element,attrs) {
-      var height = panelHeight();
-      var newWidth = panelWidth();
-      if( newWidth > attrs.width) {
-        svg.style('width',newWidth);
-      }
+      panelXScale = d3.scale.linear().domain([0,panelWidth() ]).range([0,attrs.width ]);
+      panelYScale = d3.scale.linear().domain([0,panelHeight()]).range([0,attrs.height]);
 
-      svg.style('height',height)
+      svg.style('width',attrs.width)
+         .style('height',attrs.height)
          .style('background-color', 'lightcyan');
 
-      var root = svg.append('g');
+      root = svg.append('g');
+    };
+
+    var redrawPanel = function(d3,svg,data,element,attrs) {
+      svg.style('width',attrs.width)
+         .style('height',attrs.height);
+
+      var maxdata   = Math.max.apply(null,panelData.data);
+      var maxradius = Math.min(panelXScale(maxdata),panelYScale(maxdata));
 
       var circles = svg.selectAll('circle')
                        .data(data)
@@ -52,12 +61,12 @@
              .style('fill', 'green')
              .style('stroke', 'blue')
              .style('stroke-width', '2')
-             .attr('cx',function(d,i) {return height*i + d;})
-             .attr('cy',function() {return height/2;})
-             .attr('r',function(d) {return d;});
+             .attr('cx', function(d,i) {return panelXScale(4*maxradius*i + 2*d);})
+             .attr('cy', function()    {return panelYScale(2*maxradius);})
+             .attr('r',  function(d)   {return Math.min(panelXScale(d),panelYScale(d));});
 
       root.append('text')
-         .text('Should be: ' + height)
+         .text('Should be: ' + attrs.height)
          .attr('x',20)
          .attr('y',20);
     };
@@ -67,6 +76,10 @@
     $scope.panelData     = panelData;
     $scope.panelHeight   = panelHeight;
     $scope.renderPanel   = renderPanel;
+    $scope.redrawPanel   = redrawPanel;
+
+    var counter = 0;
+    $scope.counter = counter;
   }
 
 })(); // End of IIFE
